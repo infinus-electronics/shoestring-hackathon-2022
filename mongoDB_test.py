@@ -4,7 +4,6 @@ from re import L
 import json 
 from promotion_data import promotion_data
 from .Collection_type import object_type
-import dateutil
 from pymongo import MongoClient
 from .test_data import json_data
 
