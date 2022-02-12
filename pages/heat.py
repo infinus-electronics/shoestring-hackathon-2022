@@ -10,20 +10,10 @@ import dash_table.FormatTemplate as FormatTemplate
 from datetime import datetime as dt
 from app import app
 
-import pages.shelves as shelves
-import pages.inv as inv
-import pages.ana as ana
-import pages.heat as heat
-
-from pages.navbar import get_navbar
 from pages.header import get_header
+from pages.navbar import get_navbar
 from pages.emptybar import get_emptyrow
 
-####################################################################################################
-# 000 - FORMATTING INFO
-####################################################################################################
-
-####################### Corporate css formatting
 corporate_colors = {
     'dark-blue-grey' : 'rgb(62, 64, 76)',
     'medium-blue-grey' : 'rgb(77, 79, 91)',
@@ -152,85 +142,22 @@ corporate_layout = go.Layout(
     margin = corporate_margins
     )
 
-####################################################################################################
-# 000 - DATA MAPPING
-####################################################################################################
+def heat():
+    page = ([#####################
+    #Row 1 : Header
+    get_header(),
 
-#Sales mapping
-sales_filepath = 'data/datasource.xlsx'
+    #####################
+    #Row 2 : Nav bar
+    get_navbar('heat'),
 
-sales_fields = {
-    'date' : 'Date',
-    'reporting_group_l1' : 'Country',
-    'reporting_group_l2' : 'City',
-    'sales' : 'Sales Units',
-    'revenues' : 'Revenues',
-    'sales target' : 'Sales Targets',
-    'rev target' : 'Rev Targets',
-    'num clients' : 'nClients'
-    }
-sales_formats = {
-    sales_fields['date'] : '%d/%m/%Y'
-}
+    #####################
+    #Row 3 : Filters
+    
+    
 
-####################################################################################################
-# 000 - IMPORT DATA
-####################################################################################################
-
-###########################
-#Import sales data
-xls = pd.ExcelFile(sales_filepath)
-sales_import=xls.parse('Static')
-
-#Format date field
-sales_import[sales_fields['date']] = pd.to_datetime(sales_import[sales_fields['date']], format=sales_formats[sales_fields['date']])
-sales_import['date_2'] = sales_import[sales_fields['date']].dt.date
-min_dt = sales_import['date_2'].min()
-min_dt_str = str(min_dt)
-max_dt = sales_import['date_2'].max()
-max_dt_str = str(max_dt)
-
-#Create L1 dropdown options
-repo_groups_l1 = sales_import[sales_fields['reporting_group_l1']].unique()
-repo_groups_l1_all_2 = [
-    {'label' : k, 'value' : k} for k in sorted(repo_groups_l1)
-    ]
-repo_groups_l1_all_1 = [{'label' : '(Select All)', 'value' : 'All'}]
-repo_groups_l1_all = repo_groups_l1_all_1 + repo_groups_l1_all_2
-
-#Initialise L2 dropdown options
-repo_groups_l2 = sales_import[sales_fields['reporting_group_l2']].unique()
-repo_groups_l2_all_2 = [
-    {'label' : k, 'value' : k} for k in sorted(repo_groups_l2)
-    ]
-repo_groups_l2_all_1 = [{'label' : '(Select All)', 'value' : 'All'}]
-repo_groups_l2_all = repo_groups_l2_all_1 + repo_groups_l2_all_2
-repo_groups_l1_l2 = {}
-for l1 in repo_groups_l1:
-    l2 = sales_import[sales_import[sales_fields['reporting_group_l1']] == l1][sales_fields['reporting_group_l2']].unique()
-    repo_groups_l1_l2[l1] = l2
-
-################################################################################################################################################## SET UP END
-
-####################################################################################################
-# 000 - DEFINE REUSABLE COMPONENTS AS FUNCTIONS
-####################################################################################################
+    ])
+    return page
 
 
 
-shelves = shelves.shelves()
-
-####################################################################################################
-# 002 - Page 2
-####################################################################################################
-
-inv = inv.inv()
-
-
-####################################################################################################
-# 003 - Page 3
-####################################################################################################
-
-ana = ana.ana()
-
-heat = heat.heat()
