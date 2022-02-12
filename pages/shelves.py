@@ -18,7 +18,7 @@ client = MongoClient("mongodb://myUserAdmin:camjfl@13.40.33.147:27017")
 db = client.admin
 col = db["Milk 1L"]
 
-excludes = ['system.version', 'system.users', 'Discounts']
+excludes = ['system.version', 'system.users', 'Discounts', 'Starbucks House Blend', 'Durian Ice Cream']
 
 # serverStatusResult=db.command("serverStatus")
 pprint(db.list_collection_names())
@@ -173,19 +173,40 @@ box = {
 
 def shelves():
 
-
+    items = db.list_collection_names()
 
     thisTable = []
-    for i in range(10): #numrows
+    for i in range(1, 10): #numrows
         thisCol = []
-        for j in range(3): #numcols
+        for j in ['A', 'B', 'C']: #numcols
 
-            
-            thisCol.append(html.Div([
+            cell = html.Div([
 
-                html.Div(["{}{}".format(str(i), str(j))], className = "p-3 border bg-primary text-center")
+                        html.Div(["{}{}".format(str(i), str(j))], className = "p-3 border bg-primary text-center")
 
-            ], className = "col"))
+                    ], className = "col")
+
+            for item in items:
+
+                if item in excludes:
+                    continue
+
+                collection = db[item].find()
+                # for k in collection:
+                #     pprint(k)
+                # pprint(collection[0])
+                
+                shelf = collection[0]['shelf']
+                shelf = [c for c in shelf]
+
+                if shelf[0] == j and shelf[1] == str(i):
+                    cell = html.Div([
+
+                        html.Div(["{}{}: {}".format(str(i), str(j), str(item))], className = "p-3 border bg-primary text-center")
+
+                    ], className = "col")
+
+            thisCol.append(cell)
         thisTable.append(html.Div(thisCol, className="row g-2"))
 
     
