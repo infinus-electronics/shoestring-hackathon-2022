@@ -13,7 +13,7 @@ uwsgi
 
 Brotli
 click
-
+testresources
 dash-renderer
 dash-table
 
