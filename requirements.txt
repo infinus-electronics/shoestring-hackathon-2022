@@ -11,23 +11,23 @@ dash-core-components
 plotly
 uwsgi
 
-Brotli==1.0.7
-click==7.1.2
+Brotli
+click
 
 dash-renderer
 dash-table
 
-Flask-Compress==1.5.0
-future==0.18.2
+Flask-Compress
+future
 itsdangerous
 Jinja2
-MarkupSafe==1.1.1
-numpy==1.19.1
-pandas==1.1.0
+MarkupSafe
+numpy
+pandas
 
-pytz==2020.1
-retrying==1.3.3
-six==1.15.0
+pytz
+retrying
+six
 Werkzeug
-xlrd==1.2.0
-gunicorn==20.0.4
+xlrd
+gunicorn
