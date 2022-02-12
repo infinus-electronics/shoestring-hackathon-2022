@@ -18,13 +18,4 @@ class object_type:
         self.is_exp = is_exp
     
 
-def get_db(name):
-        
-        connection_string = "mongodb://myUserAdmin:camjfl@13.40.33.147"
-        client = MongoClient(connection_string)
-        
-        return client["{}".format(name)]
-
-
-
 
