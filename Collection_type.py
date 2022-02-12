@@ -5,7 +5,7 @@ import pymongo
 
 
 class object_type:
-    def __init__(self, name, quantity, stock, batch_no, shelf, exp_date):
+    def __init__(self, name, quantity, stock, batch_no, shelf, exp_date, is_exp):
         
         self.name = name
         if isinstance(name, list):
@@ -15,8 +15,10 @@ class object_type:
         self.batch_no = batch_no
         self.shelf = shelf 
         self.exp_date = exp_date
+        self.is_exp = is_exp
     
-    def get_db(self, name):
+
+def get_db(name):
         
         connection_string = "mongodb://myUserAdmin:camjfl@13.40.33.147"
         client = MongoClient(connection_string)
