@@ -3,10 +3,10 @@ Description=uWSGI instance to serve jfl
 After=network.target
 
 [Service]
-User=sammy
+User=ubuntu
 Group=www-data
 WorkingDirectory=/home/ubuntu/app/shoestring-hackathon-2022
-Environment="PATH=/home/ubuntu/.local/bin/uwsgi"
+Environment="PATH=/home/ubuntu/.local/bin/"
 ExecStart=/home/ubuntu/.local/bin/uwsgi --ini /home/ubuntu/app/shoestring-hackathon-2022/wsgi.py
 
 [Install]
