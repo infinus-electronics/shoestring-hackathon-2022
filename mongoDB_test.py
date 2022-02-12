@@ -2,6 +2,7 @@ from asyncio.base_tasks import _task_get_stack
 from cgi import test
 from re import L
 import json 
+from promotion_data import promotion_data
 from .Collection_type import object_type
 import dateutil
 from pymongo import MongoClient
@@ -31,7 +32,20 @@ def insert_docs(db, collection_name, data):
       obj_dict = json.loads(jsonObject) 
       obj_list.append(obj_dict)
   db[collection_name].insert_many(obj_list)
+
+def promotion_func(): 
+  data = promotion_data
+  magnitude = []
   
+  for i in data: 
+    json_dict = json.loads(i)
+    sum = 0
+    for k in json_dict: 
+      if json_dict[k].isdigit(): 
+        sum += json_dict[k]
+    
+    magnitude.append(sum)
+  return magnitude
 
 if __name__ == "__main__":
   db_name = "test"
