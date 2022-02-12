@@ -509,7 +509,7 @@ sales = html.Div([
 
         html.Div([ # External 10-column
 
-            html.H2(children = "Sales Performancessssssssssssssxs",
+            html.H2(children = "Sales",
                     style = {'color' : corporate_colors['white']}),
 
             html.Div([ # Internal row - RECAPS
