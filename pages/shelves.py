@@ -182,7 +182,7 @@ def shelves():
 
             cell = html.Div([
 
-                        html.Div(["{}{}".format(str(i), str(j))], className = "p-3 border bg-primary text-center")
+                        html.Div(["{}{}".format(str(j), str(i))], className = "p-3 border bg-primary text-center")
 
                     ], className = "col")
 
@@ -190,7 +190,7 @@ def shelves():
 
                 if item in excludes:
                     continue
-
+                pprint(item)
                 collection = db[item].find()
                 # for k in collection:
                 #     pprint(k)
@@ -200,13 +200,37 @@ def shelves():
                 shelf = [c for c in shelf]
 
                 if shelf[0] == j and shelf[1] == str(i):
-                    cell = html.Div([
 
-                        html.Div(["{}{}: {}".format(str(i), str(j), str(item))], className = "p-3 border bg-primary text-center")
+                    thisProductCount = 0
+                    for lot in collection:
+                        thisProductCount = thisProductCount + int(lot['on_display'])
 
-                    ], className = "col")
+                    if thisProductCount == 0:
+
+                        cell = html.Div([
+
+                            html.Div(["{}{}: {}, {} left".format(str(j), str(i), str(item), str(thisProductCount))], className = "p-3 border bg-danger text-center")
+
+                        ], className = "col")
+
+                    elif thisProductCount <= 5:
+
+                        cell = html.Div([
+
+                            html.Div(["{}{}: {}, {} left".format(str(j), str(i), str(item), str(thisProductCount))], className = "p-3 border bg-warning text-center")
+
+                        ], className = "col")
+
+                    else:
+
+                        cell = html.Div([
+
+                            html.Div(["{}{}: {}, {} left".format(str(j), str(i), str(item), str(thisProductCount))], className = "p-3 border bg-success text-center")
+
+                        ], className = "col")
 
             thisCol.append(cell)
+
         thisTable.append(html.Div(thisCol, className="row g-2"))
 
     
