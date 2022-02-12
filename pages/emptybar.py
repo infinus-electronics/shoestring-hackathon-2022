@@ -10,16 +10,6 @@ import dash_table.FormatTemplate as FormatTemplate
 from datetime import datetime as dt
 from app import app
 
-import pages.shelves as shelves
-from pages.navbar import get_navbar
-from pages.header import get_header
-from pages.emptybar import get_emptyrow
-
-####################################################################################################
-# 000 - FORMATTING INFO
-####################################################################################################
-
-####################### Corporate css formatting
 corporate_colors = {
     'dark-blue-grey' : 'rgb(62, 64, 76)',
     'medium-blue-grey' : 'rgb(77, 79, 91)',
@@ -169,123 +159,15 @@ sales_formats = {
     sales_fields['date'] : '%d/%m/%Y'
 }
 
-####################################################################################################
-# 000 - IMPORT DATA
-####################################################################################################
+def get_emptyrow(h='45px'):
+    """This returns an empty row of a defined height"""
 
-###########################
-#Import sales data
-xls = pd.ExcelFile(sales_filepath)
-sales_import=xls.parse('Static')
-
-#Format date field
-sales_import[sales_fields['date']] = pd.to_datetime(sales_import[sales_fields['date']], format=sales_formats[sales_fields['date']])
-sales_import['date_2'] = sales_import[sales_fields['date']].dt.date
-min_dt = sales_import['date_2'].min()
-min_dt_str = str(min_dt)
-max_dt = sales_import['date_2'].max()
-max_dt_str = str(max_dt)
-
-#Create L1 dropdown options
-repo_groups_l1 = sales_import[sales_fields['reporting_group_l1']].unique()
-repo_groups_l1_all_2 = [
-    {'label' : k, 'value' : k} for k in sorted(repo_groups_l1)
-    ]
-repo_groups_l1_all_1 = [{'label' : '(Select All)', 'value' : 'All'}]
-repo_groups_l1_all = repo_groups_l1_all_1 + repo_groups_l1_all_2
-
-#Initialise L2 dropdown options
-repo_groups_l2 = sales_import[sales_fields['reporting_group_l2']].unique()
-repo_groups_l2_all_2 = [
-    {'label' : k, 'value' : k} for k in sorted(repo_groups_l2)
-    ]
-repo_groups_l2_all_1 = [{'label' : '(Select All)', 'value' : 'All'}]
-repo_groups_l2_all = repo_groups_l2_all_1 + repo_groups_l2_all_2
-repo_groups_l1_l2 = {}
-for l1 in repo_groups_l1:
-    l2 = sales_import[sales_import[sales_fields['reporting_group_l1']] == l1][sales_fields['reporting_group_l2']].unique()
-    repo_groups_l1_l2[l1] = l2
-
-################################################################################################################################################## SET UP END
-
-####################################################################################################
-# 000 - DEFINE REUSABLE COMPONENTS AS FUNCTIONS
-####################################################################################################
-
-
-
-shelves = shelves.shelves()
-
-####################################################################################################
-# 002 - Page 2
-####################################################################################################
-
-page2 = html.Div([
-
-    #####################
-    #Row 1 : Header
-    get_header(),
-
-    #####################
-    #Row 2 : Nav bar
-    get_navbar('page2'),
-
-    #####################
-    #Row 3 : Filters
-    html.Div([ # External row
-
-        html.Br()
-
+    emptyrow = html.Div([
+        html.Div([
+            html.Br()
+        ], className = 'col-12')
     ],
-    className = 'row sticky-top'), # External row
+    className = 'row',
+    style = {'height' : h})
 
-    #####################
-    #Row 4
-    get_emptyrow(),
-
-    #####################
-    #Row 5 : Charts
-    html.Div([ # External row
-
-        html.Br()
-
-    ])
-
-])
-
-####################################################################################################
-# 003 - Page 3
-####################################################################################################
-
-page3 = html.Div([
-
-    #####################
-    #Row 1 : Header
-    get_header(),
-
-    #####################
-    #Row 2 : Nav bar
-    get_navbar('page3'),
-
-    #####################
-    #Row 3 : Filters
-    html.Div([ # External row
-
-        html.Br()
-
-    ],
-    className = 'row sticky-top'), # External row
-
-    #####################
-    #Row 4
-    get_emptyrow(),
-
-    #####################
-    #Row 5 : Charts
-    html.Div([ # External row
-
-        html.Br()
-
-    ])
-
-])
+    return emptyrow
