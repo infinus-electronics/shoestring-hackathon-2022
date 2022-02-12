@@ -58,6 +58,8 @@ except KeyboardInterrupt:
     client.disconnect()
     client.loop_stop()
 
+def return_pload_list():
+    return pload_list
 
 
     
