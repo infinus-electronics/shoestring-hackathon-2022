@@ -167,7 +167,7 @@ def shelves():
         for j in range(3): #numcols
             thisCol.append(html.Div([
 
-                html.Div(["{}{}".format(str(i), str(j))], className = "p-3 border bg-light text-center")
+                html.Div(["{}{}".format(str(i), str(j))], className = "p-3 border bg-primary text-center")
 
             ], className = "col"))
         thisTable.append(html.Div(thisCol, className="row g-2"))
