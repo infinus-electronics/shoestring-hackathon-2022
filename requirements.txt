@@ -9,3 +9,4 @@ dash-bootstrap-components
 dash-html-components
 dash-core-components
 plotly
+uwsgi
