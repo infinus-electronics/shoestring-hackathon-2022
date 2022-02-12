@@ -9,7 +9,19 @@ import dash_table
 from dash_table.Format import Format, Group
 import dash_table.FormatTemplate as FormatTemplate
 from datetime import datetime as dt
-from app import app
+# from app import app
+
+from pymongo import MongoClient
+from pprint import pprint
+
+client = MongoClient("mongodb://myUserAdmin:camjfl@13.40.33.147:27017")
+db = client.admin
+col = db["Milk 1L"]
+
+excludes = ['system.version', 'system.users', 'Discounts']
+
+# serverStatusResult=db.command("serverStatus")
+pprint(db.list_collection_names())
 
 from pages.header import get_header
 from pages.navbar import get_navbar
@@ -161,16 +173,23 @@ box = {
 
 def shelves():
 
+
+
     thisTable = []
     for i in range(10): #numrows
         thisCol = []
         for j in range(3): #numcols
+
+            
             thisCol.append(html.Div([
 
                 html.Div(["{}{}".format(str(i), str(j))], className = "p-3 border bg-primary text-center")
 
             ], className = "col"))
         thisTable.append(html.Div(thisCol, className="row g-2"))
+
+    
+
 
 
     page = ([#####################
