@@ -1,0 +1,9 @@
+server {
+    listen 80;
+    server_name 13.40.33.147 13.40.33.147;
+
+    location / {
+        include uwsgi_params;
+        uwsgi_pass unix:/home/ubuntu/app/shoestring-hackathon-2022/jfl.sock;
+    }
+}
