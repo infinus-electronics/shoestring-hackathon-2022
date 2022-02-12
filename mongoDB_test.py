@@ -34,8 +34,8 @@ def insert_docs(db, collection_name, data):
   
 
 if __name__ == "__main__":
-  db_name = test
-  c_name = test_c
+  db_name = "test"
+  c_name = "test_c"
   data = data_initialisation()
   
   get_db(db_name)
