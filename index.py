@@ -4,7 +4,7 @@ import dash
 
 from app import app
 from app import server
-from layouts import shelves, inv, page3
+from layouts import shelves, inv, ana, heat
 import callbacks
 
 app.layout = html.Div([
@@ -19,8 +19,10 @@ def display_page(pathname):
          return shelves
     elif pathname == '/apps/inv':
          return inv
-    elif pathname == '/apps/page3':
-         return page3
+    elif pathname == '/apps/ana':
+         return ana
+    elif pathname == '/apps/heat':
+         return heat
     else:
         return shelves # This is the "home page"
 

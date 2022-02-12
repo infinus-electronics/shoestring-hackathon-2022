@@ -144,7 +144,7 @@ def get_navbar(p = 'shelves'):
 
     navbar_shelves = html.Div([
 
-        html.Div([], className = 'col-3'),
+        html.Div([], className = 'col-1'),
 
         html.Div([
             dcc.Link(
@@ -157,31 +157,40 @@ def get_navbar(p = 'shelves'):
 
         html.Div([
             dcc.Link(
-                html.H4(children = 'Page 2'),
-                href='/apps/page2'
+                html.H4(children = 'Inventory'),
+                href='/apps/inv'
                 )
         ],
         className='col-2'),
 
         html.Div([
             dcc.Link(
-                html.H4(children = 'Page 3'),
-                href='/apps/page3'
+                html.H4(children = 'Heatmap'),
+                href='/apps/heat'
                 )
         ],
         className='col-2'),
 
-        html.Div([], className = 'col-3')
+        html.Div([
+            dcc.Link(
+                html.H4(children = 'Analysis'),
+                href='/apps/ana'
+                )
+        ],
+        className='col-2'),
+
+        html.Div([], className = 'col-1')
 
     ],
     className = 'row',
     style = {'background-color' : corporate_colors['dark-green'],
-            'box-shadow': '2px 5px 5px 1px rgba(255, 101, 131, .5)'}
+            'box-shadow': '2px 5px 5px 1px rgba(255, 101, 131, .5)',
+            'justify-content': 'center'}
     )
 
-    navbar_page2 = html.Div([
+    navbar_inv = html.Div([
 
-        html.Div([], className = 'col-3'),
+        html.Div([], className = 'col-1'),
 
         html.Div([
             dcc.Link(
@@ -193,32 +202,41 @@ def get_navbar(p = 'shelves'):
 
         html.Div([
             dcc.Link(
-                html.H4(children = 'Page 2',
+                html.H4(children = 'Inventory',
                         style = navbarcurrentpage),
-                href='/apps/page2'
+                href='/apps/inv'
                 )
         ],
         className='col-2'),
 
         html.Div([
             dcc.Link(
-                html.H4(children = 'Page 3'),
-                href='/apps/page3'
+                html.H4(children = 'Heatmap'),
+                href='/apps/heat'
                 )
         ],
         className='col-2'),
 
-        html.Div([], className = 'col-3')
+        html.Div([
+            dcc.Link(
+                html.H4(children = 'Analysis'),
+                href='/apps/ana'
+                )
+        ],
+        className='col-2'),
+
+        html.Div([], className = 'col-1')
 
     ],
     className = 'row',
     style = {'background-color' : corporate_colors['dark-green'],
-            'box-shadow': '2px 5px 5px 1px rgba(255, 101, 131, .5)'}
+            'box-shadow': '2px 5px 5px 1px rgba(255, 101, 131, .5)',
+            'justify-content': 'center'}
     )
 
-    navbar_page3 = html.Div([
+    navbar_heat = html.Div([
 
-        html.Div([], className = 'col-3'),
+        html.Div([], className = 'col-1'),
 
         html.Div([
             dcc.Link(
@@ -230,32 +248,91 @@ def get_navbar(p = 'shelves'):
 
         html.Div([
             dcc.Link(
-                html.H4(children = 'Page 2'),
-                href='/apps/page2'
+                html.H4(children = 'Inventory'),
+                href='/apps/inv'
                 )
         ],
         className='col-2'),
 
         html.Div([
             dcc.Link(
-                html.H4(children = 'Page 3',
+                html.H4(children = 'Heatmap',
                         style = navbarcurrentpage),
-                href='/apps/page3'
+                href='/apps/heat'
                 )
         ],
         className='col-2'),
 
-        html.Div([], className = 'col-3')
+        html.Div([
+            dcc.Link(
+                html.H4(children = 'Analysis'),
+                href='/apps/ana'
+                )
+        ],
+        className='col-2'),
+
+        html.Div([], className = 'col-1')
 
     ],
     className = 'row',
     style = {'background-color' : corporate_colors['dark-green'],
-            'box-shadow': '2px 5px 5px 1px rgba(255, 101, 131, .5)'}
+            'box-shadow': '2px 5px 5px 1px rgba(255, 101, 131, .5)',
+            'justify-content': 'center'}
     )
 
-    if p == 'shelves':
+    navbar_ana = html.Div([
+
+        html.Div([], className = 'col-1'),
+
+        html.Div([
+            dcc.Link(
+                html.H4(children = 'Shelves Overview'),
+                href='/apps/shelves-overview'
+                )
+        ],
+        className='col-2'),
+
+        html.Div([
+            dcc.Link(
+                html.H4(children = 'Inventory'),
+                href='/apps/inv'
+                )
+        ],
+        className='col-2'),
+
+        html.Div([
+            dcc.Link(
+                html.H4(children = 'Heatmap'),
+                href='/apps/heat'
+                )
+        ],
+        className='col-2'),
+
+        html.Div([
+            dcc.Link(
+                html.H4(children = 'Analysis',
+                        style = navbarcurrentpage),
+                href='/apps/ana'
+                )
+        ],
+        className='col-2'),
+
+        html.Div([], className = 'col-1')
+
+    ],
+    className = 'row',
+    style = {'background-color' : corporate_colors['dark-green'],
+            'box-shadow': '2px 5px 5px 1px rgba(255, 101, 131, .5)',
+            'justify-content': 'center'}
+    )
+
+    if p == 'Shelves':
         return navbar_shelves
-    elif p == 'page2':
-        return navbar_page2
+    elif p == 'inv':
+        return navbar_inv
+    elif p == 'heat':
+        return navbar_heat
+    elif p == 'ana':
+        return navbar_ana
     else:
-        return navbar_page3
+        return navbar_shelves
