@@ -31,3 +31,4 @@ six
 Werkzeug
 xlrd
 gunicorn
+openpyxl

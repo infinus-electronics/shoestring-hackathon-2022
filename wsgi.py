@@ -25,4 +25,4 @@ def display_page(pathname):
         return sales # This is the "home page"
         
 if __name__ == "__main__":
-    app.run()
+    app.run_server()
