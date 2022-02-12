@@ -7,7 +7,7 @@ User=ubuntu
 Group=www-data
 WorkingDirectory=/home/ubuntu/app/shoestring-hackathon-2022
 Environment="PATH=/home/ubuntu/.local/bin/"
-ExecStart=/home/ubuntu/.local/bin/uwsgi --ini /home/ubuntu/app/shoestring-hackathon-2022/wsgi.py
+ExecStart=/home/ubuntu/.local/bin/uwsgi --ini /home/ubuntu/app/shoestring-hackathon-2022/jfl.ini
 
 [Install]
 WantedBy=multi-user.target
