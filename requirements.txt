@@ -3,3 +3,4 @@ waitress
 pymongo
 dnspython
 paho-mqtt
+python-dateutil
