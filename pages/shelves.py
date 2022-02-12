@@ -1,3 +1,4 @@
+from webbrowser import get
 import dash_core_components as dcc
 import dash_html_components as html
 import plotly.graph_objs as go
@@ -142,7 +143,36 @@ corporate_layout = go.Layout(
     margin = corporate_margins
     )
 
+shelf_grid = {
+
+    "display": "grid",
+    "grid-template-columns": "repeat(3, 1fr)",
+    "gap": "10px",
+    "grid-auto-rows": "minmax(100px, auto)",
+}
+
+box = {
+  "background-color": "#444",
+  "color": "#fff",
+  "border-radius": "5px",
+  "padding":"20px",
+#   "font-size": "150%",
+}
+
 def shelves():
+
+    thisTable = []
+    for i in range(10): #numrows
+        thisCol = []
+        for j in range(3): #numcols
+            thisCol.append(html.Div([
+
+                html.Div(["{}{}".format(str(i), str(j))], className = "p-3 border bg-light text-center")
+
+            ], className = "col"))
+        thisTable.append(html.Div(thisCol, className="row g-2"))
+
+
     page = ([#####################
     #Row 1 : Header
     get_header(),
@@ -150,11 +180,16 @@ def shelves():
     #####################
     #Row 2 : Nav bar
     get_navbar('Shelves'),
-
+    
+    get_emptyrow(),
     #####################
     #Row 3 : Filters
+
     
+
+    html.Div(thisTable, className = "container")
     
+       
 
     ])
     return page
