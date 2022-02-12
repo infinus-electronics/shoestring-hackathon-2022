@@ -19,12 +19,18 @@ def on_connect(client, userdata, flags, rc):
         print("Connection failed")
 
 def on_message(client, userdata, message):
-    pload_list.append(message.payload)
+    print("Message received: "  + message.payload)
+    if len(pload_list) > 20000:
+        del pload_list[0]
+        pload_list.append(message.payload)
+    else: 
+        pload_list.append(message.payload)
+
 
   
 Connected = False   #global variable for the state of the connection
   
-broker_address= "m11.cloudmqtt.com"  #Broker address
+broker_address= "13.40.33.147"  #Broker address
 port = 1883                         #Broker port
 user = "myUserAdmin"                    #Connection username
 password = "camjfl"            #Connection password
@@ -52,4 +58,7 @@ except KeyboardInterrupt:
     client.disconnect()
     client.loop_stop()
 
+
+
+    
 
