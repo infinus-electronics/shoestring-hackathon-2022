@@ -10,7 +10,7 @@ from .test_data import json_data
 def get_db(name):
         
   connection_string = "mongodb://myUserAdmin:camjfl@13.40.33.147"
-  client = MongoClient(port = connection_string)      
+  client = MongoClient(connection_string)      
   return client["{}".format(name)]
 
 
@@ -22,15 +22,6 @@ def create_collection(db_name, collection_name):
   
   dbname = get_db("{}".format(db_name))
   collection = dbname["{}".format(collection_name)]
-
-def insert_docs(db, collection_name, data):
-  
-  obj_list = []
-  with data as f: 
-    for jsonObject in f: 
-      obj_dict = json.loads(jsonObject) 
-      obj_list.append(obj_dict)
-  db[collection_name].insert_many(obj_list)
 
 def promotion_func(): 
   data = get_promotion_data
@@ -46,6 +37,17 @@ def promotion_func():
     magnitude.append(sum)
   return magnitude
 
+def get_collection(db_name, col_name):
+  db = get_db(db_name)
+  col = db[col_name]
+  return col 
+
+def insert_into(col, json_dict):
+  col.insert_many(json_dict)
+
+def test_db_connection(db_name, col_name, data):
+  col = get_collection(db_name, col_name)
+  insert_into(col,data)
 
 if __name__ == "__main__":
   do_something = 1

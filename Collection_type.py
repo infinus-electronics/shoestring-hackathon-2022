@@ -2,20 +2,28 @@ from gettext import install
 from unicodedata import name
 from pymongo import MongoClient
 import pymongo
+import datetime
 
 
 class object_type:
-    def __init__(self, name, quantity, stock, batch_no, shelf, exp_date, is_exp):
+    def __init__(self, in_storage, on_display, lot_number, mass_per_item, shelf, expiry_date):
         
-        self.name = name
-        if isinstance(name, list):
-            self.name = name[0]
-        self.quantity = quantity 
-        self.stock = stock
-        self.batch_no = batch_no
+        self.on_display = on_display 
+        self.in_storage = in_storage
+        self.lot_number = lot_number
         self.shelf = shelf 
-        self.exp_date = exp_date
-        self.is_exp = is_exp
+        self.expiry_date = expiry_date
+        self.mass_per_item = mass_per_item
+    
+    def create_json_item(self):
+        dict = {"expiry date" : datetime(self.expiry_date),
+                "in_storage" : int(self.in_storage),
+                "on_display" : int(self.on_display),
+                "lot_number" : str(self.lot_number),
+                "shelf" : str(self.shelf),
+                "mass_per_item" : int(self.mass_per_item)
+                }
+                
     
 
 
