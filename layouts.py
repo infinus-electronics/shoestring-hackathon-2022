@@ -13,7 +13,7 @@ from app import app
 import pages.shelves as shelves
 import pages.page_2_inventory.inv as inv
 import pages.page_3_analysis.ana as ana
-import pages.heat as heat
+import pages.page_4_heatmap.heat as heat
 
 from pages.navbar import get_navbar
 from pages.header import get_header
