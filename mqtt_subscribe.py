@@ -32,8 +32,16 @@ def get_last_Nvalues(n):
     connection_string = "mongodb://myUserAdmin:camjfl@13.40.33.147"
     client = MongoClient(connection_string)
     db = client["trend_history"]
-    n_list = db.load_values.find({$query: {}, $orderby: {$natural : -1}}).limit(n)
-    return n_list
+    col = db["load_values"]
+    master_list = []
+    output_list = []
+    for doc in col.find({"weight": {}}).sort("time"):
+        master_list.append(doc)
+    for i in range(0,n):
+        output_list.append(master_list[i])
+
+    return output_list
+
 
 
 def on_message(client, userdata, message):
