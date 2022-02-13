@@ -1,4 +1,4 @@
-from asyncio.base_tasks import _task_get_stack
+# from asyncio.base_tasks import _task_get_stack
 from cgi import test
 from re import L
 import json 
@@ -6,11 +6,10 @@ from promotion_data import get_promotion_data
 from .Collection_type import object_type
 from pymongo import MongoClient
 from .test_data import json_data
-from mqtt_subscribe import return_pload_list
+# from mqtt_subscribe import return_pload_list
 
 
 def get_db(name):
-        
   connection_string = "mongodb://myUserAdmin:camjfl@13.40.33.147"
   client = MongoClient(connection_string)      
   return client["{}".format(name)]
@@ -21,7 +20,6 @@ def data_initialisation():
     return test_data
 
 def create_collection(db_name, collection_name):
-  
   dbname = get_db("{}".format(db_name))
   collection = dbname["{}".format(collection_name)]
 

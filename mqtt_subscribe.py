@@ -1,5 +1,4 @@
-import json 
-from mqtt_test import ret
+import json
 import paho.mqtt.client as mqttClient
 import time
 import datetime 
@@ -7,7 +6,6 @@ from mongoDB_test import get_db
 from mongoDB_test import get_collection
 from mongoDB_test import insert_into
 
-pload_list = []
 def on_connect(client, userdata, flags, rc):
   
     if rc == 0:
@@ -31,13 +29,7 @@ def write_to_database(payload, db_name, col_name):
 
 def on_message(client, userdata, message):
     print("Message received: "  + message.payload)
-    if len(pload_list) > 20000:
-        del pload_list[0]
-        pload_list.append(message.payload)
-        write_to_database(message.payload,"trend_history","load_values")
-    else: 
-        pload_list.append(message.payload)
-        write_to_database(message.payload,"trend_history","load_values")
+    write_to_database(message.payload,"trend_history","load_values")
 
   
 Connected = False   #global variable for the state of the connection
@@ -55,7 +47,7 @@ client.on_message= on_message                      #attach function to callback
 client.connect(broker_address, port=port)          #connect to broker
   
 client.loop_start()        #start the loop
-  
+
 while Connected != True:    #Wait for connection
     time.sleep(0.1)
   
@@ -70,8 +62,6 @@ except KeyboardInterrupt:
     client.disconnect()
     client.loop_stop()
 
-def return_pload_list():
-    return pload_list
 
 
     
