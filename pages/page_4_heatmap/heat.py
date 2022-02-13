@@ -155,6 +155,8 @@ def heat():
     #####################
     #Row 3 : Filters
     
+    get_emptyrow(),
+    
     get_image()
 
     ])
