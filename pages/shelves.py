@@ -21,7 +21,7 @@ col = db["Milk 1L"]
 excludes = ['system.version', 'system.users', 'Discounts', 'Starbucks House Blend', 'Durian Ice Cream']
 
 # serverStatusResult=db.command("serverStatus")
-pprint(db.list_collection_names())
+# pprint(db.list_collection_names())
 
 from pages.header import get_header
 from pages.navbar import get_navbar
@@ -173,6 +173,8 @@ box = {
 
 def shelves():
 
+    print("website visited")
+
     items = db.list_collection_names()
 
     thisTable = []
@@ -190,7 +192,7 @@ def shelves():
 
                 if item in excludes:
                     continue
-                pprint(item)
+                # pprint(item)
                 collection = db[item].find()
                 # for k in collection:
                 #     pprint(k)
