@@ -14,7 +14,7 @@ from app import app
 from pymongo import MongoClient
 from pprint import pprint
 
-client = MongoClient("mongodb://myUserAdmin:camjfl@13.40.33.147:27017")
+client = MongoClient("mongodb://myUserAdmin:camjfl@13.40.33.147:27017", connect=False)
 db = client.admin
 col = db["Milk 1L"]
 
@@ -173,10 +173,10 @@ box = {
 
 def shelves():
 
-    print("website visited")
+    # print("website visited")
 
-    client = MongoClient("mongodb://myUserAdmin:camjfl@13.40.33.147:27017")
-    db = client.admin
+    # client = MongoClient("mongodb://myUserAdmin:camjfl@13.40.33.147:27017")
+    # db = client.admin
 
     items = db.list_collection_names()
 
@@ -207,14 +207,24 @@ def shelves():
                 if shelf[0] == j and shelf[1] == str(i):
 
                     thisProductCount = 0
+
+                    expired = False
+
                     for lot in collection:
                         thisProductCount = thisProductCount + int(lot['on_display'])
+
+                        if lot['expiry_date'] < dt.now():
+                            expired = True
+
+                    cellStr = "{}{}: {}, {} left".format(str(j), str(i), str(item), str(thisProductCount))
+                    if expired:
+                        cellStr = "[EXPIRED]  " + cellStr
 
                     if thisProductCount == 0:
 
                         cell = html.Div([
 
-                            html.Div(["{}{}: {}, {} left".format(str(j), str(i), str(item), str(thisProductCount))], className = "p-3 border bg-danger text-center")
+                            html.Div([cellStr], className = "p-3 border bg-danger text-center")
 
                         ], className = "col")
 
@@ -222,17 +232,25 @@ def shelves():
 
                         cell = html.Div([
 
-                            html.Div(["{}{}: {}, {} left".format(str(j), str(i), str(item), str(thisProductCount))], className = "p-3 border bg-warning text-center")
+                            html.Div([cellStr], className = "p-3 border bg-warning text-center")
 
                         ], className = "col")
 
                     else:
 
-                        cell = html.Div([
+                        if expired:
+                            cell = html.Div([
 
-                            html.Div(["{}{}: {}, {} left".format(str(j), str(i), str(item), str(thisProductCount))], className = "p-3 border bg-success text-center")
+                                html.Div([cellStr], className = "p-3 border bg-warning text-center")
 
-                        ], className = "col")
+                            ], className = "col")
+
+                        else:
+                            cell = html.Div([
+
+                                html.Div([cellStr], className = "p-3 border bg-success text-center")
+
+                            ], className = "col")
 
             thisCol.append(cell)
 
@@ -273,6 +291,7 @@ def update(n_intervals):
     items = db.list_collection_names()
 
     thisTable = []
+
     for i in range(1, 10): #numrows
         thisCol = []
         for j in ['A', 'B', 'C']: #numcols
@@ -299,14 +318,24 @@ def update(n_intervals):
                 if shelf[0] == j and shelf[1] == str(i):
 
                     thisProductCount = 0
+
+                    expired = False
+
                     for lot in collection:
                         thisProductCount = thisProductCount + int(lot['on_display'])
+
+                        if lot['expiry_date'] < dt.now():
+                            expired = True
+
+                    cellStr = "{}{}: {}, {} left".format(str(j), str(i), str(item), str(thisProductCount))
+                    if expired:
+                        cellStr = "[EXPIRED]  " + cellStr
 
                     if thisProductCount == 0:
 
                         cell = html.Div([
 
-                            html.Div(["{}{}: {}, {} left".format(str(j), str(i), str(item), str(thisProductCount))], className = "p-3 border bg-danger text-center")
+                            html.Div([cellStr], className = "p-3 border bg-danger text-center")
 
                         ], className = "col")
 
@@ -314,17 +343,25 @@ def update(n_intervals):
 
                         cell = html.Div([
 
-                            html.Div(["{}{}: {}, {} left".format(str(j), str(i), str(item), str(thisProductCount))], className = "p-3 border bg-warning text-center")
+                            html.Div([cellStr], className = "p-3 border bg-warning text-center")
 
                         ], className = "col")
 
                     else:
 
-                        cell = html.Div([
+                        if expired:
+                            cell = html.Div([
 
-                            html.Div(["{}{}: {}, {} left".format(str(j), str(i), str(item), str(thisProductCount))], className = "p-3 border bg-success text-center")
+                                html.Div([cellStr], className = "p-3 border bg-warning text-center")
 
-                        ], className = "col")
+                            ], className = "col")
+
+                        else:
+                            cell = html.Div([
+
+                                html.Div([cellStr], className = "p-3 border bg-success text-center")
+
+                            ], className = "col")
 
             thisCol.append(cell)
 
