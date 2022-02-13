@@ -2,7 +2,7 @@ from asyncio.base_tasks import _task_get_stack
 from cgi import test
 from re import L
 import json 
-from promotion_data import promotion_data
+from promotion_data import get_promotion_data
 from .Collection_type import object_type
 from pymongo import MongoClient
 from .test_data import json_data
@@ -33,7 +33,7 @@ def insert_docs(db, collection_name, data):
   db[collection_name].insert_many(obj_list)
 
 def promotion_func(): 
-  data = promotion_data
+  data = get_promotion_data
   magnitude = []
   
   for i in data: 
@@ -46,13 +46,8 @@ def promotion_func():
     magnitude.append(sum)
   return magnitude
 
+
 if __name__ == "__main__":
-  db_name = "test"
-  c_name = "test_c"
-  data = data_initialisation()
-  
-  get_db(db_name)
-  create_collection(db_name, c_name)
-  insert_docs(db_name, c_name, data)
+  do_something = 1
 
   #can try testing data initialisatioin 
