@@ -33,7 +33,7 @@ def on_publish(client,userdata,result):
     """
      create function for callback
     """
-    print("Publish to MQTT broker to turn on LED \n")
+    # print("Publish to MQTT broker to turn on LED \n")
 
 
 def turn_on_led():
@@ -74,9 +74,9 @@ def send_email(msg, listofemails="cosana4309@diolang.com"):
         smtp_server.login(gmail_user, gmail_password)
         smtp_server.sendmail(sent_from, to, email_text)
         smtp_server.close()
-        print ("Email sent successfully!")
+        # print ("Email sent successfully!")
     except Exception as ex:
-        print ("Something went wrong….email was not sent",ex)
+        # print ("Something went wrong….email was not sent",ex)
 
 
 def ave_of_list(lst):
@@ -102,7 +102,7 @@ client = MongoClient(connection_string)
 
 while True:
     data_list = get_last_Nvalues(5)
-    print(data_list)
+    # print(data_list)
     # Weight increase
     if (data_list[0] - ave_of_list(data_list[1:])) > 200:
         turn_on_led()
@@ -110,6 +110,6 @@ while True:
     if ave_of_list(data_list) < 300 and mid_of_list(data_list) < 300:
         if time.time() - email_last_sent > 20:
             send_email("Weight is below 300g. Please restock")
-            print("Email was sent")
+            # print("Email was sent")
             email_last_sent = time.time()
             neversent=0

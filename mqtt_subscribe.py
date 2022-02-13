@@ -9,11 +9,11 @@ from pymongo import MongoClient
 
 def on_connect(client, userdata, flags, rc):
     if rc == 0:
-        print("Connected to broker")
+        # print("Connected to broker")
         global Connected                #Use global variable
         Connected = True                #Signal connection
     else:
-        print("Connection failed")
+        # print("Connection failed")
 
 
 def write_to_database(payload, db_name, col_name): 
@@ -40,14 +40,14 @@ def get_last_Nvalues(n):
         master_list.append(doc)
     for i in range(0,n):
         output_list.append(master_list[i])
-    print(output_list)
+    # print(output_list)
     return output_list
 
 
 
 def on_message(client, userdata, message):
-    print("Message received: ")
-    print(message.payload.decode("utf-8"))
+    # print("Message received: ")
+    # print(message.payload.decode("utf-8"))
 
     write_to_database(message.payload,"trend_history","load_values")
 
@@ -78,7 +78,7 @@ try:
         time.sleep(1)
   
 except KeyboardInterrupt:
-    print ("exiting")
+    # print ("exiting")
     client.disconnect()
     client.loop_stop()
 
