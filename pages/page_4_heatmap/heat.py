@@ -13,6 +13,7 @@ from app import app
 from pages.header import get_header
 from pages.navbar import get_navbar
 from pages.emptybar import get_emptyrow
+from .image import get_image
 
 corporate_colors = {
     'dark-blue-grey' : 'rgb(62, 64, 76)',
@@ -154,7 +155,9 @@ def heat():
     #####################
     #Row 3 : Filters
     
+    get_emptyrow(),
     
+    get_image()
 
     ])
     return page

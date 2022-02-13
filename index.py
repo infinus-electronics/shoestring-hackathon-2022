@@ -44,4 +44,4 @@ def display_page(pathname):
 #      return shelves
 
 if __name__ == '__main__':
-    app.run_server(debug=True, port = 1022)
+    app.run_server(debug=True, port = 1032)
