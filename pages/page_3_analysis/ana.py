@@ -9,7 +9,7 @@ from dash_table.Format import Format, Group
 import dash_table.FormatTemplate as FormatTemplate
 from datetime import datetime as dt
 from app import app
-from pages.graph_ana import get_graph
+from pages.page_3_analysis.graph_ana import get_graph
 
 from pages.header import get_header
 from pages.navbar import get_navbar
