@@ -15,6 +15,8 @@ def on_connect(client, userdata, flags, rc):
     else:
         # print("Connection failed")
 
+        pass
+
 
 def write_to_database(payload, db_name, col_name): 
     now = time.time()

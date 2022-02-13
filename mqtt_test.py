@@ -76,6 +76,8 @@ def send_email(msg, listofemails="cosana4309@diolang.com"):
         smtp_server.close()
         # print ("Email sent successfully!")
     except Exception as ex:
+
+        pass
         # print ("Something went wrong….email was not sent",ex)
 
 
