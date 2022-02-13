@@ -173,10 +173,10 @@ box = {
 
 def shelves():
 
-    print("website visited")
+    # print("website visited")
 
-    client = MongoClient("mongodb://myUserAdmin:camjfl@13.40.33.147:27017")
-    db = client.admin
+    # client = MongoClient("mongodb://myUserAdmin:camjfl@13.40.33.147:27017")
+    # db = client.admin
 
     items = db.list_collection_names()
 
