@@ -108,7 +108,7 @@ while True:
         turn_on_led()
     # Low level alert
     if ave_of_list(data_list) < 300 and mid_of_list(data_list) < 300:
-        if time.time() - email_last_sent > 10:
+        if time.time() - email_last_sent > 20:
             send_email("Weight is below 300g. Please restock")
             print("Email was sent")
             email_last_sent = time.time()
