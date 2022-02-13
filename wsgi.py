@@ -16,7 +16,7 @@ def serve_layout():
           html.Div(id='page-content'),
           dcc.Interval(
                id = "interval-component",
-               interval= 10*1000,
+               interval= 30*1000,
                n_intervals = 0
           )
           # dcc.Button(id='invisible_button', style={'display':'none'})
