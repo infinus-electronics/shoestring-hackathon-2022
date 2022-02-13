@@ -257,6 +257,7 @@ def shelves():
 
         thisTable.append(html.Div(thisCol, className="row g-2"))
 
+
     
 
 
@@ -368,6 +369,8 @@ def update(n_intervals):
             thisCol.append(cell)
 
         thisTable.append(html.Div(thisCol, className="row g-2"))
+
+        # client.close()
 
     return thisTable
 
