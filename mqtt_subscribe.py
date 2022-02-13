@@ -2,6 +2,7 @@ import json
 from mqtt_test import ret
 import paho.mqtt.client as mqttClient
 import time
+import datetime 
 from mongoDB_test import get_db
 from mongoDB_test import get_collection
 from mongoDB_test import insert_into
@@ -21,18 +22,22 @@ def on_connect(client, userdata, flags, rc):
         print("Connection failed")
 
 def write_to_database(payload, db_name, col_name): 
-    col = get_collection("trend_history","load_values")
-
-
+    now = datetime.now()
+    col = get_collection(db_name,col_name)
+    dict_insert = {"weight" : payload,
+                    "time" : now.strftime("%m/%d/%Y %H:%M:%S")
+    }
+    insert_into(col,dict_insert)
 
 def on_message(client, userdata, message):
     print("Message received: "  + message.payload)
     if len(pload_list) > 20000:
         del pload_list[0]
         pload_list.append(message.payload)
+        write_to_database(message.payload,"trend_history","load_values")
     else: 
         pload_list.append(message.payload)
-
+        write_to_database(message.payload,"trend_history","load_values")
 
   
 Connected = False   #global variable for the state of the connection
