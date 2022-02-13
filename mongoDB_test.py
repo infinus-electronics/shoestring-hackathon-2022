@@ -19,14 +19,17 @@ def data_initialisation():
     test_data = json_data
     return test_data
 
+
 def create_collection(db_name, collection_name):
   dbname = get_db("{}".format(db_name))
   collection = dbname["{}".format(collection_name)]
 
+
 def promotion_func(): 
   data = get_promotion_data
   magnitude = []
-  
+
+
   for i in data: 
     json_dict = json.loads(i)
     sum = 0
