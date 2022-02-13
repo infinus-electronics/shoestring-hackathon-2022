@@ -9,7 +9,7 @@ import dash_table
 from dash_table.Format import Format, Group
 import dash_table.FormatTemplate as FormatTemplate
 from datetime import datetime as dt
-# from app import app
+from app import app
 
 from pymongo import MongoClient
 from pprint import pprint
@@ -18,7 +18,7 @@ client = MongoClient("mongodb://myUserAdmin:camjfl@13.40.33.147:27017")
 db = client.admin
 col = db["Milk 1L"]
 
-excludes = ['system.version', 'system.users', 'Discounts', 'Starbucks House Blend', 'Durian Ice Cream']
+excludes = ['system.version', 'system.users', 'Discounts']
 
 # serverStatusResult=db.command("serverStatus")
 # pprint(db.list_collection_names())
@@ -175,6 +175,9 @@ def shelves():
 
     print("website visited")
 
+    client = MongoClient("mongodb://myUserAdmin:camjfl@13.40.33.147:27017")
+    db = client.admin
+
     items = db.list_collection_names()
 
     thisTable = []
@@ -184,7 +187,7 @@ def shelves():
 
             cell = html.Div([
 
-                        html.Div(["{}{}".format(str(j), str(i))], className = "p-3 border bg-primary text-center")
+                        html.Div(["{}{}".format(str(j), str(i))], className = "p-3 border bg-white text-center")
 
                     ], className = "col")
 
@@ -253,7 +256,7 @@ def shelves():
 
     
 
-    html.Div(thisTable, className = "container")
+    html.Div(thisTable, id = "shelves-table", className = "container")
     
        
 
@@ -261,4 +264,72 @@ def shelves():
     return page
 
 
+@app.callback(dash.dependencies.Output("shelves-table", 'children'),
+            [dash.dependencies.Input("interval-component", "n_intervals")])
+def update(n_intervals):
 
+    print('updated {}'.format(n_intervals))
+
+    items = db.list_collection_names()
+
+    thisTable = []
+    for i in range(1, 10): #numrows
+        thisCol = []
+        for j in ['A', 'B', 'C']: #numcols
+
+            cell = html.Div([
+
+                        html.Div(["{}{}".format(str(j), str(i))], className = "p-3 border bg-white text-center")
+
+                    ], className = "col")
+
+            for item in items:
+
+                if item in excludes:
+                    continue
+                # pprint(item)
+                collection = db[item].find()
+                # for k in collection:
+                #     pprint(k)
+                # pprint(collection[0])
+                
+                shelf = collection[0]['shelf']
+                shelf = [c for c in shelf]
+
+                if shelf[0] == j and shelf[1] == str(i):
+
+                    thisProductCount = 0
+                    for lot in collection:
+                        thisProductCount = thisProductCount + int(lot['on_display'])
+
+                    if thisProductCount == 0:
+
+                        cell = html.Div([
+
+                            html.Div(["{}{}: {}, {} left".format(str(j), str(i), str(item), str(thisProductCount))], className = "p-3 border bg-danger text-center")
+
+                        ], className = "col")
+
+                    elif thisProductCount <= 5:
+
+                        cell = html.Div([
+
+                            html.Div(["{}{}: {}, {} left".format(str(j), str(i), str(item), str(thisProductCount))], className = "p-3 border bg-warning text-center")
+
+                        ], className = "col")
+
+                    else:
+
+                        cell = html.Div([
+
+                            html.Div(["{}{}: {}, {} left".format(str(j), str(i), str(item), str(thisProductCount))], className = "p-3 border bg-success text-center")
+
+                        ], className = "col")
+
+            thisCol.append(cell)
+
+        thisTable.append(html.Div(thisCol, className="row g-2"))
+
+    return thisTable
+
+    pass
