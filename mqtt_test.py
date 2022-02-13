@@ -15,7 +15,7 @@ def on_publish(client,userdata,result):
     """
      create function for callback
     """
-    print("data published \n")
+    print("Publish to MQTT broker to turn on LED \n")
 
 
 def turn_on_led():
