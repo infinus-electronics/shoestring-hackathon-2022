@@ -2,10 +2,10 @@
 from cgi import test
 from re import L
 import json 
-from promotion_data import get_promotion_data
-from .Collection_type import object_type
+# from promotion_data import get_promotion_data
+# from .Collection_type import object_type
 from pymongo import MongoClient
-from .test_data import json_data
+from test_data import json_data
 # from mqtt_subscribe import return_pload_list
 
 
@@ -48,6 +48,13 @@ def insert_into(col, json_dict):
 def test_db_connection(db_name, col_name, data):
   col = get_collection(db_name, col_name)
   insert_into(col,data)
+
+
+def get_promotion_data():
+  db = get_db("admin")
+  promotion_data = db["Discounts"]
+  return json(promotion_data)
+
 
 if __name__ == "__main__":
   do_something = 1

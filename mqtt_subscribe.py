@@ -2,22 +2,19 @@ import json
 import paho.mqtt.client as mqttClient
 import time
 import datetime 
-from mongoDB_test import get_db
+# from mongoDB_test import get_db
 from mongoDB_test import get_collection
 from mongoDB_test import insert_into
 
+
 def on_connect(client, userdata, flags, rc):
-  
     if rc == 0:
-  
         print("Connected to broker")
-  
         global Connected                #Use global variable
-        Connected = True                #Signal connection 
-  
+        Connected = True                #Signal connection
     else:
-  
         print("Connection failed")
+
 
 def write_to_database(payload, db_name, col_name): 
     now = datetime.now()
@@ -26,6 +23,7 @@ def write_to_database(payload, db_name, col_name):
                     "time" : now.strftime("%m/%d/%Y %H:%M:%S")
     }
     insert_into(col,dict_insert)
+
 
 def on_message(client, userdata, message):
     print("Message received: "  + message.payload)
