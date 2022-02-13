@@ -36,7 +36,7 @@ app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
 y = [string["weight"] for string in record]
 y = y[::-1]
-y = y[-20:-1]
+# y = y[-20:-1]
 
 record = values.find().sort([('_id', -1)]).limit(100)
 
@@ -48,16 +48,17 @@ x =[]
 for item in uniq_x:
    x.append(datetime.datetime.fromtimestamp(item))
 x = x[::-1]
-x = x[-20:-1]
+# x = x[-20:-1]
 # def create_figure( df):
 #     # set up plotly figure
 #     fig =  px.line(df, x="year", y="lifeExp", title='Life expectancy in Canada')
 #     return fig
-fig = px.line(x = x, y =y, title ='Please work' )
-fig.update_yaxes(range = [0,5500])
-fig.update_xaxes(range = [x[0],x[-1]])
-
 pprint(x)
+fig = px.line(x = x, y =y, title ='Graph of Weight against Time' )
+fig.update_yaxes(range = [0,5500])
+
+
+
 def get_graph():
     graph = html.Div([
         dcc.Graph(figure = fig)
