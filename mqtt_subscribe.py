@@ -28,6 +28,7 @@ def write_to_database(payload, db_name, col_name):
     col = db["load_values"]
     col.insert_one(dict_insert)
 
+
 def get_last_Nvalues(n):
     connection_string = "mongodb://myUserAdmin:camjfl@13.40.33.147"
     client = MongoClient(connection_string)
@@ -39,7 +40,7 @@ def get_last_Nvalues(n):
         master_list.append(doc)
     for i in range(0,n):
         output_list.append(master_list[i])
-
+    print(output_list)
     return output_list
 
 
