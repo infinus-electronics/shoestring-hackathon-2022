@@ -6,11 +6,14 @@ from promotion_data import get_promotion_data
 from .Collection_type import object_type
 from pymongo import MongoClient
 from .test_data import json_data
+from mqtt_subscribe import return_pload_list
+
 
 def get_db(name):
-    connection_string = "mongodb://myUserAdmin:camjfl@13.40.33.147"
-    client = MongoClient(connection_string)
-    return client["{}".format(name)]
+        
+  connection_string = "mongodb://myUserAdmin:camjfl@13.40.33.147"
+  client = MongoClient(connection_string)      
+  return client["{}".format(name)]
 
 
 def data_initialisation(): 
@@ -44,11 +47,9 @@ def get_collection(db_name, col_name):
 def insert_into(col, json_dict):
   col.insert_many(json_dict)
 
-
 def test_db_connection(db_name, col_name, data):
   col = get_collection(db_name, col_name)
   insert_into(col,data)
-
 
 if __name__ == "__main__":
   do_something = 1
