@@ -1,0 +1,9 @@
+[Unit]
+Description=MQTT Test
+After=multi-user.target
+[Service]
+Type=simple
+Restart=always
+ExecStart=/usr/bin/python3 /home/ubuntu/app/shoestring-hackathon-2022/mqtt_test.py
+[Install]
+WantedBy=multi-user.target
