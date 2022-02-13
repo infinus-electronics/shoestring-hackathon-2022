@@ -5,18 +5,18 @@ import time
 
 
 pload_list = []
+
+
 def on_connect(client, userdata, flags, rc):
-  
     if rc == 0:
-  
         print("Connected to broker")
   
         global Connected                #Use global variable
         Connected = True                #Signal connection 
   
     else:
-  
         print("Connection failed")
+
 
 def on_message(client, userdata, message):
     print("Message received: "  + message.payload)
@@ -26,8 +26,6 @@ def on_message(client, userdata, message):
     else: 
         pload_list.append(message.payload)
 
-
-  
 Connected = False   #global variable for the state of the connection
   
 broker_address= "13.40.33.147"  #Broker address
@@ -58,9 +56,7 @@ except KeyboardInterrupt:
     client.disconnect()
     client.loop_stop()
 
+
 def return_pload_list():
     return pload_list
-
-
-    
 
