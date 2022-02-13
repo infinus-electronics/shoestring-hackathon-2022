@@ -47,7 +47,7 @@ client.loop_start()        #start the loop
 while Connected != True:    #Wait for connection
     time.sleep(0.1)
   
-client.subscribe("weight")
+client.subscribe("shaft1/weight")
   
 try:
     while True:
