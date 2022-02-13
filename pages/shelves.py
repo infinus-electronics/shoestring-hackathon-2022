@@ -14,7 +14,7 @@ from app import app
 from pymongo import MongoClient
 from pprint import pprint
 
-client = MongoClient("mongodb://myUserAdmin:camjfl@13.40.33.147:27017", )
+client = MongoClient("mongodb://myUserAdmin:camjfl@13.40.33.147:27017", connect=False)
 db = client.admin
 col = db["Milk 1L"]
 
