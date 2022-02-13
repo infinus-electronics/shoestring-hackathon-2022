@@ -2,20 +2,27 @@ import json
 from mqtt_test import ret
 import paho.mqtt.client as mqttClient
 import time
-
+from mongoDB_test import get_db
+from mongoDB_test import get_collection
+from mongoDB_test import insert_into
 
 pload_list = []
-
-
 def on_connect(client, userdata, flags, rc):
+  
     if rc == 0:
+  
         print("Connected to broker")
   
         global Connected                #Use global variable
         Connected = True                #Signal connection 
   
     else:
+  
         print("Connection failed")
+
+def write_to_database(payload, db_name, col_name): 
+    col = get_collection("trend_history","load_values")
+
 
 
 def on_message(client, userdata, message):
@@ -26,6 +33,8 @@ def on_message(client, userdata, message):
     else: 
         pload_list.append(message.payload)
 
+
+  
 Connected = False   #global variable for the state of the connection
   
 broker_address= "13.40.33.147"  #Broker address
@@ -56,7 +65,9 @@ except KeyboardInterrupt:
     client.disconnect()
     client.loop_stop()
 
-
 def return_pload_list():
     return pload_list
+
+
+    
 
