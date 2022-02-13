@@ -15,8 +15,8 @@ from pymongo import MongoClient
 from pprint import pprint
 
 client = MongoClient("mongodb://myUserAdmin:camjfl@13.40.33.147:27017", connect = False)
-db = client.admin
-col = db["Milk 1L"]
+# db = client.admin
+# col = db["Milk 1L"]
 
 excludes = ['system.version', 'system.users', 'Discounts']
 
@@ -178,6 +178,7 @@ def shelves():
     # client = MongoClient("mongodb://myUserAdmin:camjfl@13.40.33.147:27017")
     # db = client.admin
 
+    db = client.admin
     items = db.list_collection_names()
 
     thisTable = []
@@ -288,6 +289,7 @@ def update(n_intervals):
 
     print('updated {}'.format(n_intervals))
 
+    db = client.admin
     items = db.list_collection_names()
 
     thisTable = []
