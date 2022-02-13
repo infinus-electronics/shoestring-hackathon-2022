@@ -15,6 +15,8 @@ from pages.navbar import get_navbar
 from pages.emptybar import get_emptyrow
 from .searchbar import get_searchbar
 from .card import get_cards
+from .table import table
+
 corporate_colors = {
     'dark-blue-grey' : 'rgb(62, 64, 76)',
     'medium-blue-grey' : 'rgb(77, 79, 91)',
@@ -157,7 +159,9 @@ def inv():
     
     get_searchbar(),
 
-    get_cards()
+    get_cards(),
+    
+    table
 
     ])
     return page

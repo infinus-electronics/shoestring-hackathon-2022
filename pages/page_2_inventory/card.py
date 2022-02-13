@@ -5,7 +5,6 @@ import dash_html_components as html
 from dash.dependencies import Input, Output
 import pandas as pd
 import plotly.express as px
-#from sklearn.metrics import accuracy_score
 
 # from utils import compute_plot_gam
 # from modeling import lrr, df, fb, col_map
@@ -29,6 +28,7 @@ def Header(name, app):
 
 train_acc = 10
 test_acc = 10
+total = train_acc + test_acc
 
 
 #################################################################### Card componefe==defnts
@@ -36,20 +36,28 @@ test_acc = 10
 cards = [
     dbc.Card(
         [
-            html.H2(f"{train_acc*100:.2f}%", className="card-title"),
-            html.P("Model Training Accuracy", className="card-text"),
+            html.H2(f"{train_acc:.2f}", className="card-title"),
+            html.P("Item on shelf", className="card-text"),
         ],
         body=True,
-        color="light",
+        color="dark",
     ),
     dbc.Card(
         [
-            html.H2(f"{test_acc*100:.2f}%", className="card-title"),
-            html.P("Model Test Accuracy", className="card-text"),
+            html.H2(f"{test_acc:.2f}", className="card-title"),
+            html.P("Item in Inventory", className="card-text"),
         ],
         body=True,
         color="dark",
         inverse=True,
+    ),
+    dbc.Card(
+        [
+            html.H2(f"{total:.2f}", className="card-title"),
+            html.P("Item in Total", className="card-text"),
+        ],
+        body=True,
+        color="dark",
     )
 ]
 
@@ -66,74 +74,3 @@ def get_cards():
     )
     return cards_num
     
-    
-    
-############################################################## graph
-# graphs = [
-#     [
-#         LabeledSelect(
-#             id="select-coef",
-#             options=[{"label": v, "value": k} for k, v in col_map.items()],
-#             value=list(xPlot.keys())[0],
-#             label="Filter Features",
-#         ),
-#         dcc.Graph(id="graph-coef"),
-#     ],
-#     [
-#         LabeledSelect(
-#             id="select-gam",
-#             options=[{"label": col_map[k], "value": k} for k in xPlot.keys()],
-#             value=list(xPlot.keys())[0],
-#             label="Visualize GAM",
-#         ),
-#         dcc.Graph("graph-gam"),
-#     ],
-# ]
-
-# app.layout = dbc.Container(
-#     [
-#         Header("Dash Heart Disease Prediction with AIX360", app),
-#         html.Hr(),
-#         dbc.Row([dbc.Col(card) for card in cards]),
-#         html.Br(),
-#         dbc.Row([dbc.Col(graph) for graph in graphs]),
-#     ],
-#     fluid=False,
-# )
-
-
-# @app.callback(
-#     [Output("graph-gam", "figure"), Output("graph-coef", "figure")],
-#     [Input("select-gam", "value"), Input("select-coef", "value")],
-# )
-# def update_figures(gam_col, coef_col):
-
-#     # Filter based on chosen column
-#     xdf_filt = xdf[xdf.rule.str.contains(coef_col)].copy()
-#     xdf_filt["desc"] = "<br>" + xdf_filt.rule.str.replace("AND ", "AND<br>")
-#     xdf_filt["condition"] = [
-#         [r for r in r.split(" AND ") if coef_col in r][0] for r in xdf_filt.rule
-#     ]
-
-#     coef_fig = px.bar(
-#         xdf_filt,
-#         x="desc",
-#         y="coefficient",
-#         color="condition",
-#         title="Rules Explanations",
-#     )
-#     coef_fig.update_xaxes(showticklabels=False)
-
-#     if plotLine[gam_col]:
-#         plot_fn = px.line
-#     else:
-#         plot_fn = px.bar
-
-#     gam_fig = plot_fn(
-#         x=xPlot[gam_col],
-#         y=yPlot[gam_col],
-#         title="Generalized additive model component",
-#         labels={"x": gam_col, "y": "contribution to log-odds of Y=1"},
-#     )
-
-#     return gam_fig, coef_fig
