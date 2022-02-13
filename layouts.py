@@ -11,7 +11,7 @@ from datetime import datetime as dt
 from app import app
 
 import pages.shelves as shelves
-import pages.inv as inv
+import pages.page_2_inventory.inv as inv
 import pages.page_3_analysis.ana as ana
 import pages.heat as heat
 
